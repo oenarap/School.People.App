@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <Authors>Jake B. Parane</Authors>
+    <Description>A class library containing the School.People application logic.</Description>
+    <Copyright>© 2021</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>school hrm</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="School.People.Core" Version="1.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Models\FamilyIds.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+  </ItemGroup>
+
+</Project>
