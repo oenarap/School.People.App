@@ -31,20 +31,20 @@ namespace School.People.App.Commands.Handlers
         private bool IsValidFirstName(string firstName)
         {
             if (string.IsNullOrEmpty(firstName) || string.IsNullOrWhiteSpace(firstName) || !IsNonNumeric(firstName)) { return false; }
-            return (firstName.Length >= Lengths.PersonNameFieldsMinLength && firstName.Length <= Lengths.CommonNamesAndTitlesMaxLength);
+            return firstName.Length >= Constants.PersonNameFieldsMinLength && firstName.Length <= Constants.CommonNamesAndTitlesMaxLength;
         }
 
         private bool IsValidSurname(string surname)
         {
             if (string.IsNullOrEmpty(surname) || string.IsNullOrWhiteSpace(surname) || !IsNonNumeric(surname)) { return false; }
-            return (surname.Length >= Lengths.PersonNameFieldsMinLength && surname.Length <= Lengths.PersonSurnameMaxLength);
+            return surname.Length >= Constants.PersonNameFieldsMinLength && surname.Length <= Constants.PersonSurnameMaxLength;
         }
 
         private bool IsValidExtensionName(string extensionName)
         {
             if (extensionName != null && IsNonNumeric(extensionName)) 
             {
-                return extensionName.Length <= Lengths.PersonNameExtensionMaxLength;
+                return extensionName.Length <= Constants.PersonNameExtensionMaxLength;
             }
             return true;
         }
@@ -52,7 +52,7 @@ namespace School.People.App.Commands.Handlers
         private bool IsValidTitle(string title)
         {
             if (string.IsNullOrEmpty(title)) { return true; }
-            return title.Length <= Lengths.PersonTitleMaxLength;
+            return title.Length <= Constants.PersonTitleMaxLength;
         }
 
         private bool IsNonNumeric(string str)

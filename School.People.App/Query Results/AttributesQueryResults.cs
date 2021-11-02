@@ -1,7 +1,7 @@
 ﻿using System;
 using School.People.Core.Attributes;
-using School.People.App.Models;
 using System.Collections.Generic;
+using School.People.Core.DTOs.Aggregates;
 
 namespace School.People.App.QueryResults
 {

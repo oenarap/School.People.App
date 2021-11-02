@@ -1,5 +1,6 @@
-﻿using System;
-using School.People.App.Models;
+﻿using School.People.Core.DTOs;
+using School.People.Core.DTOs.Aggregates;
+using System;
 
 namespace School.People.App.QueryResults
 {

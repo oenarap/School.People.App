@@ -1,6 +1,6 @@
 ﻿using System;
 using School.People.Core.Attributes;
-using School.People.App.Models;
+using School.People.Core.DTOs.Aggregates;
 
 namespace School.People.App.Commands
 {
@@ -22,9 +22,9 @@ namespace School.People.App.Commands
            : base(id, data) { }
     }
 
-    public class UpdateImagesCommand : Command<IImage>
+    public class UpdateImagesCommand : Command<IIdPicture>
     {
-        public UpdateImagesCommand(Guid id, IImage data)
+        public UpdateImagesCommand(Guid id, IIdPicture data)
             : base(id, data) { }
     }
 

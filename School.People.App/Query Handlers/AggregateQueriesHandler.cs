@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using School.People.App.Models;
 using School.People.App.Queries;
 using School.People.Core.Repositories;
 using System.Collections.Generic;
 using Apps.Communication.Core;
 using School.People.App.QueryResults;
+using School.People.Core.DTOs.Aggregates;
 
 namespace School.People.App.Queries.Handlers
 {

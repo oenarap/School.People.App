@@ -57,7 +57,7 @@ namespace School.People.App.Commands.Handlers
         {
             try
             {
-                if (command.Data is IImage data)
+                if (command.Data is IIdPicture data)
                 {
                     bool result = await ImagesRepository.UpdateAsync(data).ConfigureAwait(false);
                     if (result == true) { EventHub.Dispatch(new ImagesUpdatedEvent(command.Id, data)); }

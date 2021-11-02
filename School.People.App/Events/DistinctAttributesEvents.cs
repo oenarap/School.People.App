@@ -21,9 +21,9 @@ namespace School.People.App.Events
             : base(id, data) { }
     }
 
-    public class ImagesUpdatedEvent : Event<IImage>
+    public class ImagesUpdatedEvent : Event<IIdPicture>
     {
-        public ImagesUpdatedEvent(Guid id, IImage data)
+        public ImagesUpdatedEvent(Guid id, IIdPicture data)
             : base(id, data) { }
     }
 
