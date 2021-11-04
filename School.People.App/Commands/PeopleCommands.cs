@@ -35,7 +35,7 @@ namespace School.People.App.Commands
 
     public class UpdateMotherCommand : Command<IPerson>
     {
-        public UpdateMotherCommand(Guid id, IPerson data)
+        public UpdateMotherCommand(Guid id, Guid personId, IPerson data)
            : base(id, data) { }
     }
 

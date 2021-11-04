@@ -6,7 +6,7 @@ using School.People.App.QueryResults;
 
 namespace School.People.App.Queries.Results.Handlers
 {
-    public class DateOfBirthContributor : IHandle<PersonalInformationAggregateQueryResult>
+    public class BirthdateContributor : IHandle<PersonalInformationAggregateQueryResult>
     {
         public async Task Handle(PersonalInformationAggregateQueryResult result)
         {
@@ -14,7 +14,7 @@ namespace School.People.App.Queries.Results.Handlers
             if (dob != null) { result.Data.Birthdate = dob.Birthdate; }
         }
 
-        public DateOfBirthContributor(IDateOfBirthsRepository dateOfBirthsRepository)
+        public BirthdateContributor(IDateOfBirthsRepository dateOfBirthsRepository)
         {
             DateOfBirthsRepository = dateOfBirthsRepository ?? throw new ArgumentNullException(nameof(dateOfBirthsRepository));
         }

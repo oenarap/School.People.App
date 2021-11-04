@@ -70,11 +70,12 @@ namespace School.People.App.Commands.Handlers
         {
             try
             {
-                var insertResult = await this.Handle(new InsertOtherPersonCommand(command.Id, command.Data));
+                var insertResult = await this.Handle(new InsertOtherPersonCommand(command.Id, 
+                    command.Data)).ConfigureAwait(false);
                 if (insertResult is Guid id)
                 {
-                    var cmd = new UpdateMotherIdCommand(command.Id, id);
-                    var updateResult = await CommandHub.Dispatch<UpdateMotherIdCommand, bool>(cmd).ConfigureAwait(false);
+                    var updateResult = await CommandHub.Dispatch<UpdateMotherIdCommand, bool>
+                        (new UpdateMotherIdCommand(command.Id, id)).ConfigureAwait(false);
                     return updateResult;
                 }
                 return false;

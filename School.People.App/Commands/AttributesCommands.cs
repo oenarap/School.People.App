@@ -88,10 +88,10 @@ namespace School.People.App.Commands
             : base(id, data) { }
     }
 
-    public class InsertOtherInformationCommand : KeyedCommand<IOtherInformation>
+    public class InsertOtherInformationCommand : Command<IOtherInformation>
     {
-        public InsertOtherInformationCommand(Guid id, Guid key, IOtherInformation data)
-            : base(id, key, data) { }
+        public InsertOtherInformationCommand(Guid id, IOtherInformation data, Guid key)
+            : base(id, data, key) { }
     }
 
     public class DeleteTrainingCommand : Command<ITraining>
@@ -106,10 +106,10 @@ namespace School.People.App.Commands
             : base(id, data) { }
     }
 
-    public class InsertTrainingCommand : KeyedCommand<ITraining>
+    public class InsertTrainingCommand : Command<ITraining>
     {
-        public InsertTrainingCommand(Guid id, Guid key, ITraining data)
-            : base(id, key, data) { }
+        public InsertTrainingCommand(Guid id, ITraining data, Guid key)
+            : base(id, data, key) { }
     }
 
     public class DeleteCivicWorkCommand : Command<ICivicWork>
@@ -124,10 +124,10 @@ namespace School.People.App.Commands
             : base(id, data) { }
     }
 
-    public class InsertCivicWorkCommand : KeyedCommand<ICivicWork>
+    public class InsertCivicWorkCommand : Command<ICivicWork>
     {
-        public InsertCivicWorkCommand(Guid id, Guid key, ICivicWork data)
-            : base(id, key, data) { }
+        public InsertCivicWorkCommand(Guid id, ICivicWork data, Guid key)
+            : base(id, data, key) { }
     }
 
     public class DeleteWorkCommand : Command<IWork>
@@ -142,10 +142,10 @@ namespace School.People.App.Commands
             : base(id, data) { }
     }
 
-    public class InsertWorkCommand : KeyedCommand<IWork>
+    public class InsertWorkCommand : Command<IWork>
     {
-        public InsertWorkCommand(Guid id, Guid key, IWork data)
-            : base(id, key, data) { }
+        public InsertWorkCommand(Guid id, IWork data, Guid key)
+            : base(id, data, key) { }
     }
 
     public class DeleteEligibilityCommand : Command<IEligibility>
@@ -160,10 +160,10 @@ namespace School.People.App.Commands
             : base(id, data) { }
     }
 
-    public class InsertEligibilityCommand : KeyedCommand<IEligibility>
+    public class InsertEligibilityCommand : Command<IEligibility>
     {
-        public InsertEligibilityCommand(Guid id, Guid key, IEligibility data)
-            : base(id, key, data) { }
+        public InsertEligibilityCommand(Guid id, IEligibility data, Guid key)
+            : base(id, data, key) { }
     }
 
     public class DeleteEducationCommand : Command<IEducation>
@@ -178,10 +178,10 @@ namespace School.People.App.Commands
             : base(id, data) { }
     }
 
-    public class InsertEducationCommand : KeyedCommand<IEducation>
+    public class InsertEducationCommand : Command<IEducation>
     {
-        public InsertEducationCommand(Guid id, Guid key, IEducation data)
-            : base(id, key, data) { }
+        public InsertEducationCommand(Guid id, IEducation data, Guid key)
+            : base(id, data, key) { }
     }
 
     public class UpdateFamilyIdsCommand : Command<IFamilyIds>

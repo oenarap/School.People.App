@@ -18,7 +18,7 @@ namespace School.People.App.Commands.Handlers
         {
             try
             {
-                Guid? result = await OtherInformationsRepository.InsertAsync(command.Data, command.Key).ConfigureAwait(false);
+                var result = await OtherInformationsRepository.InsertAsync(command.Data, (Guid)command.DataId).ConfigureAwait(false);
                 if (result is Guid id) { EventHub.Dispatch(new OtherInformationInsertedEvent(id, command.Data)); }
                 return result;
             }
@@ -31,7 +31,7 @@ namespace School.People.App.Commands.Handlers
             {
                 if (command.Data is IOtherInformation data)
                 {
-                    bool result = await OtherInformationsRepository.UpdateAsync(data).ConfigureAwait(false);
+                    var result = await OtherInformationsRepository.UpdateAsync(data).ConfigureAwait(false);
                     if (result == true) { EventHub.Dispatch(new OtherInformationUpdatedEvent(command.Id, data)); }
                     return result;
                 }
@@ -46,7 +46,7 @@ namespace School.People.App.Commands.Handlers
             {
                 if (command.Data is IOtherInformation data)
                 {
-                    bool result = await OtherInformationsRepository.DeleteAsync(data).ConfigureAwait(false);
+                    var result = await OtherInformationsRepository.DeleteAsync(data).ConfigureAwait(false);
                     if (result == true) { EventHub.Dispatch(new OtherInformationDeletedEvent(command.Id, data)); }
                     return result;
                 }
@@ -59,7 +59,7 @@ namespace School.People.App.Commands.Handlers
         {
             try
             {
-                Guid? result = await TrainingsRepository.InsertAsync(command.Data, command.Key).ConfigureAwait(false);
+                var result = await TrainingsRepository.InsertAsync(command.Data, (Guid)command.DataId).ConfigureAwait(false);
                 if (result is Guid id) { EventHub.Dispatch(new TrainingInsertedEvent(id, command.Data)); }
                 return result;
             }
@@ -72,7 +72,7 @@ namespace School.People.App.Commands.Handlers
             {
                 if (command.Data is ITraining data)
                 {
-                    bool result = await TrainingsRepository.UpdateAsync(data).ConfigureAwait(false);
+                    var result = await TrainingsRepository.UpdateAsync(data).ConfigureAwait(false);
                     if (result == true) { EventHub.Dispatch(new TrainingUpdatedEvent(command.Id, data)); }
                     return result;
                 }
@@ -87,7 +87,7 @@ namespace School.People.App.Commands.Handlers
             {
                 if (command.Data is ITraining data)
                 {
-                    bool result = await TrainingsRepository.DeleteAsync(data).ConfigureAwait(false);
+                    var result = await TrainingsRepository.DeleteAsync(data).ConfigureAwait(false);
                     if (result == true) { EventHub.Dispatch(new TrainingDeletedEvent(command.Id, data)); }
                     return result;
                 }
@@ -100,7 +100,7 @@ namespace School.People.App.Commands.Handlers
         {
             try
             {
-                Guid? result = await CivicWorksRepository.InsertAsync(command.Data, command.Key).ConfigureAwait(false);
+                var result = await CivicWorksRepository.InsertAsync(command.Data, (Guid)command.DataId).ConfigureAwait(false);
                 if (result is Guid id) { EventHub.Dispatch(new CivicWorkInsertedEvent(id, command.Data)); }
                 return result;
             }
@@ -113,7 +113,7 @@ namespace School.People.App.Commands.Handlers
             {
                 if (command.Data is ICivicWork data)
                 {
-                    bool result = await CivicWorksRepository.UpdateAsync(data).ConfigureAwait(false);
+                    var result = await CivicWorksRepository.UpdateAsync(data).ConfigureAwait(false);
                     if (result == true) { EventHub.Dispatch(new CivicWorkUpdatedEvent(command.Id, data)); }
                     return result;
                 }
@@ -128,7 +128,7 @@ namespace School.People.App.Commands.Handlers
             {
                 if (command.Data is ICivicWork data)
                 {
-                    bool result = await CivicWorksRepository.DeleteAsync(data).ConfigureAwait(false);
+                    var result = await CivicWorksRepository.DeleteAsync(data).ConfigureAwait(false);
                     if (result == true) { EventHub.Dispatch(new CivicWorkDeletedEvent(command.Id, data)); }
                     return result;
                 }
@@ -141,7 +141,7 @@ namespace School.People.App.Commands.Handlers
         {
             try
             {
-                Guid? result = await WorksRepository.InsertAsync(command.Data, command.Key).ConfigureAwait(false);
+                var result = await WorksRepository.InsertAsync(command.Data, (Guid)command.DataId).ConfigureAwait(false);
                 if (result is Guid id) { EventHub.Dispatch(new WorkInsertedEvent(id, command.Data)); }
                 return result;
             }
@@ -154,7 +154,7 @@ namespace School.People.App.Commands.Handlers
             {
                 if (command.Data is IWork data)
                 {
-                    bool result = await WorksRepository.UpdateAsync(data).ConfigureAwait(false);
+                    var result = await WorksRepository.UpdateAsync(data).ConfigureAwait(false);
                     if (result == true) { EventHub.Dispatch(new WorkUpdatedEvent(command.Id, data)); }
                     return result;
                 }
@@ -169,7 +169,7 @@ namespace School.People.App.Commands.Handlers
             {
                 if (command.Data is IWork data)
                 {
-                    bool result = await WorksRepository.DeleteAsync(data).ConfigureAwait(false);
+                    var result = await WorksRepository.DeleteAsync(data).ConfigureAwait(false);
                     if (result == true) { EventHub.Dispatch(new WorkDeletedEvent(command.Id, data)); }
                     return result;
                 }
@@ -184,7 +184,7 @@ namespace School.People.App.Commands.Handlers
             {
                 if (command.Data is IEducation data)
                 {
-                    bool result = await EducationsRepository.DeleteAsync(data).ConfigureAwait(false);
+                    var result = await EducationsRepository.DeleteAsync(data).ConfigureAwait(false);
                     if (result == true) { EventHub.Dispatch(new EducationDeletedEvent(command.Id, data)); }
                     return result;
                 }
@@ -197,7 +197,7 @@ namespace School.People.App.Commands.Handlers
         {
             if (command.Data is IEducation data)
             {
-                bool result = await EducationsRepository.UpdateAsync(data).ConfigureAwait(false);
+                var result = await EducationsRepository.UpdateAsync(data).ConfigureAwait(false);
                 if (result == true) { EventHub.Dispatch(new EducationUpdatedEvent(command.Id, data)); }
                 return result;
             }
@@ -208,7 +208,7 @@ namespace School.People.App.Commands.Handlers
         {
             try
             {
-                Guid? result = await EducationsRepository.InsertAsync(command.Data, command.Key).ConfigureAwait(false);
+                var result = await EducationsRepository.InsertAsync(command.Data, (Guid)command.DataId).ConfigureAwait(false);
                 if (result is Guid id) { EventHub.Dispatch(new EducationInsertedEvent(id, command.Data)); }
                 return result;
             }
@@ -219,7 +219,7 @@ namespace School.People.App.Commands.Handlers
         {
             try
             {
-                Guid? result = await EligibilitiesRepository.InsertAsync(command.Data, command.Key).ConfigureAwait(false);
+                var result = await EligibilitiesRepository.InsertAsync(command.Data, (Guid)command.DataId).ConfigureAwait(false);
                 if (result is Guid id) { EventHub.Dispatch(new EligibilityInsertedEvent(id, command.Data)); }
                 return result;
             }
@@ -232,7 +232,7 @@ namespace School.People.App.Commands.Handlers
             {
                 if (command.Data is IEligibility data)
                 {
-                    bool result = await EligibilitiesRepository.UpdateAsync(data).ConfigureAwait(false);
+                    var result = await EligibilitiesRepository.UpdateAsync(data).ConfigureAwait(false);
                     if (result == true) { EventHub.Dispatch(new EligibilityUpdatedEvent(command.Id, data)); }
                     return result;
                 }
@@ -247,7 +247,7 @@ namespace School.People.App.Commands.Handlers
             {
                 if (command.Data is IEligibility data)
                 {
-                    bool result = await EligibilitiesRepository.DeleteAsync(data).ConfigureAwait(false);
+                    var result = await EligibilitiesRepository.DeleteAsync(data).ConfigureAwait(false);
                     if (result == true) { EventHub.Dispatch(new EligibilityDeletedEvent(command.Id, data)); }
                     return result;
                 }
@@ -260,13 +260,13 @@ namespace School.People.App.Commands.Handlers
             IWorksRepository worksRepository, ICivicWorksRepository civicWorksRepository, ITrainingsRepository trainingsRepository,
             IOtherInformationsRepository otherInformationsRepository)
         {
-            OtherInformationsRepository = otherInformationsRepository ?? throw new ArgumentNullException(nameof(otherInformationsRepository));
-            EligibilitiesRepository = eligibilitiesRepository ?? throw new ArgumentNullException(nameof(eligibilitiesRepository));
-            EducationsRepository = educationsRepository ?? throw new ArgumentNullException(nameof(educationsRepository));
-            CivicWorksRepository = civicWorksRepository ?? throw new ArgumentNullException(nameof(civicWorksRepository));
-            TrainingsRepository = trainingsRepository ?? throw new ArgumentNullException(nameof(trainingsRepository));
-            WorksRepository = worksRepository ?? throw new ArgumentNullException(nameof(worksRepository));
-            EventHub = eventHub ?? throw new ArgumentNullException(nameof(eventHub));
+            OtherInformationsRepository = otherInformationsRepository;
+            EligibilitiesRepository = eligibilitiesRepository;
+            EducationsRepository = educationsRepository;
+            CivicWorksRepository = civicWorksRepository;
+            TrainingsRepository = trainingsRepository;
+            WorksRepository = worksRepository;
+            EventHub = eventHub;
         }
 
         private readonly IOtherInformationsRepository OtherInformationsRepository;
