@@ -3,30 +3,29 @@ using School.People.Core;
 using System.Threading.Tasks;
 using Apps.Communication.Core;
 
-namespace School.People.App.Commands.Handlers
+namespace School.People.App.Commands.Validators
 {
     public class PersonValidator : IHandle<InsertStudentCommand, bool>, IHandle<UpdatePersonCommand, bool>, 
         IHandle<InsertPersonnelCommand, bool>, IHandle<InsertOtherPersonCommand, bool>
     {
-        public Task<bool> Handle(InsertOtherPersonCommand item) => IsValidPerson(item.Data);
-        public Task<bool> Handle(InsertPersonnelCommand item) => IsValidPerson(item.Data);
-        public Task<bool> Handle(UpdatePersonCommand item) => IsValidPerson(item.Data); 
-        public Task<bool> Handle(InsertStudentCommand item) => IsValidPerson(item.Data);
+        public Task<bool> Handle(InsertOtherPersonCommand item) => Task.Run(() => IsValidPerson(item.Data));
 
-        private Task<bool> IsValidPerson(IPerson person)
+        public Task<bool> Handle(InsertPersonnelCommand item) => Task.Run(() => IsValidPerson(item.Data));
+
+        public Task<bool> Handle(UpdatePersonCommand item) => Task.Run(() => IsValidPerson(item.Data));
+
+        public Task<bool> Handle(InsertStudentCommand item) => Task.Run(() => IsValidPerson(item.Data));
+
+        private bool IsValidPerson(IPerson person)
         {
-            return Task.Run(() => {
-                if (person != null)
-                {
-                    if (IsValidSurname(person.LastName) && IsValidFirstName(person.FirstName) &&
-                    IsValidSurname(person.MiddleName) && IsValidExtensionName(person.NameExtension) &&
+            if (person != null)
+            {
+                if (IsValidLastName(person.LastName) && IsValidFirstName(person.FirstName) &&
+                    IsValidLastName(person.MiddleName) && IsValidExtensionName(person.NameExtension) &&
                     IsValidTitle(person.Title)) { return true; }
-                }
-                return false;
-            });
+            }
+            return false;
         }
-
-        // validation helper methods
 
         private bool IsValidFirstName(string firstName)
         {
@@ -34,7 +33,7 @@ namespace School.People.App.Commands.Handlers
             return firstName.Length >= Constants.PersonNameFieldsMinLength && firstName.Length <= Constants.CommonNamesAndTitlesMaxLength;
         }
 
-        private bool IsValidSurname(string surname)
+        private bool IsValidLastName(string surname)
         {
             if (string.IsNullOrEmpty(surname) || string.IsNullOrWhiteSpace(surname) || !IsNonNumeric(surname)) { return false; }
             return surname.Length >= Constants.PersonNameFieldsMinLength && surname.Length <= Constants.PersonSurnameMaxLength;
@@ -59,6 +58,14 @@ namespace School.People.App.Commands.Handlers
         {
             string normalizedString = str.Replace(" ","").Replace("-", "").Replace(".", "");
             return normalizedString.All(char.IsLetter);
+        }
+
+        public PersonValidator(ICommandHub hub)
+        {
+            hub.RegisterValidator<InsertStudentCommand, PersonValidator>(this);
+            hub.RegisterValidator<UpdatePersonCommand, PersonValidator>(this);
+            hub.RegisterValidator<InsertPersonnelCommand, PersonValidator>(this);
+            hub.RegisterValidator<InsertOtherPersonCommand, PersonValidator>(this);
         }
     }
 }

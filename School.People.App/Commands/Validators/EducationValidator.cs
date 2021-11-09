@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Apps.Communication.Core;
 
-namespace School.People.App.Commands.Handlers
+namespace School.People.App.Commands.Validators
 {
     public class EducationValidator : IHandle<InsertEducationCommand, bool>, IHandle<UpdateEducationCommand, bool>
     {

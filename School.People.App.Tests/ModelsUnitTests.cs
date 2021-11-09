@@ -1,6 +1,5 @@
 using School.People.App.Queries.Models;
 using System;
-using System.Diagnostics;
 using System.Threading;
 using Xunit;
 
@@ -14,7 +13,7 @@ namespace School.People.App.Tests
             string country, string mobileNumber) {
 
             var id = Guid.NewGuid();
-            var model = new PersonalInformationAggregate(id);
+            var model = new PersonalInformationQueryData(id);
             var birthdate = DateTimeOffset.UtcNow;
 
             var BirthdateThread = new Thread(() =>

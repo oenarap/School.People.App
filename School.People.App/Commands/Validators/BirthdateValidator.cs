@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace School.People.App.Commands.Handlers
+namespace School.People.App.Commands.Validators
 {
     public class BirthdateValidator
     {

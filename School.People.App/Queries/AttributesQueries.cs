@@ -38,12 +38,6 @@ namespace School.People.App.Queries
            : base(id, param) { }
     }
 
-    public class VerificationDetailsQuery : Query<Guid>
-    {
-        public VerificationDetailsQuery(Guid id, Guid param)
-           : base(id, param) { }
-    }
-
     public class CharacterReferencesQuery : Query<Guid>
     {
         public CharacterReferencesQuery(Guid id, Guid param)

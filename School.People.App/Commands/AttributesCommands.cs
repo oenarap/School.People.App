@@ -4,24 +4,6 @@ using School.People.Core.DTOs.Aggregates;
 
 namespace School.People.App.Commands
 {
-    public class UpdateSpouseIdCommand : Command<Guid?>
-    {
-        public UpdateSpouseIdCommand(Guid id, Guid? data)
-           : base(id, data) { }
-    }
-
-    public class UpdateFatherIdCommand : Command<Guid>
-    {
-        public UpdateFatherIdCommand(Guid id, Guid data)
-           : base(id, data) { }
-    }
-
-    public class UpdateMotherIdCommand : Command<Guid>
-    {
-        public UpdateMotherIdCommand(Guid id, Guid data)
-           : base(id, data) { }
-    }
-
     public class UpdateImagesCommand : Command<IIdPicture>
     {
         public UpdateImagesCommand(Guid id, IIdPicture data)
@@ -162,8 +144,8 @@ namespace School.People.App.Commands
 
     public class InsertEligibilityCommand : Command<IEligibility>
     {
-        public InsertEligibilityCommand(Guid id, IEligibility data, Guid key)
-            : base(id, data, key) { }
+        public InsertEligibilityCommand(Guid id, IEligibility data)
+            : base(id, data) { }
     }
 
     public class DeleteEducationCommand : Command<IEducation>

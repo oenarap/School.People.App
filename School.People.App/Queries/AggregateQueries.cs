@@ -2,21 +2,21 @@
 
 namespace School.People.App.Queries
 {
-    public class FamilyMembersAggregateQuery : Query<Guid>
+    public class FamilyMembersQuery : Query<Guid>
     {
-        public FamilyMembersAggregateQuery(Guid id, Guid param)
+        public FamilyMembersQuery(Guid id, Guid param)
             : base(id, param) { }
     }
 
-    public class VerificationDetailAggregateQuery : Query<Guid>
+    public class VerificationDetailsQuery : Query<Guid>
     {
-        public VerificationDetailAggregateQuery(Guid id, Guid param)
-            : base(id, param) { }
+        public VerificationDetailsQuery(Guid id, Guid param)
+           : base(id, param) { }
     }
 
-    public class PersonalInformationAggregateQuery : Query<Guid>
+    public class PersonalInformationQuery : Query<Guid>
     {
-        public PersonalInformationAggregateQuery(Guid id, Guid param)
+        public PersonalInformationQuery(Guid id, Guid param)
             : base(id, param) { }
     }
 }
