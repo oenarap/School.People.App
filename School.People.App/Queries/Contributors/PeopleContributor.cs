@@ -15,10 +15,10 @@ namespace School.People.App.Queries.Contributors
             var repository = (IOtherPeopleRepository)provider.GetService(typeof(IOtherPeopleRepository));
             var people = await repository.ReadAllAsync().ConfigureAwait(false);
 
-            foreach (var p in people)
+            foreach (var person in people)
             {
-                message.Data.Add(new Person(p.Id, p.LastName, p.FirstName,
-                    p.MiddleName, p.NameExtension, p.Title));
+                message.Data.Add(new Person(person.Id, person.LastName, person.FirstName,
+                    person.MiddleName, person.NameExtension, person.Title));
             }
         }
 
@@ -27,10 +27,10 @@ namespace School.People.App.Queries.Contributors
             var repository = (IPersonnelRepository)provider.GetService(typeof(IPersonnelRepository));
             var people = await repository.ReadAllAsync().ConfigureAwait(false);
 
-            foreach (var p in people)
+            foreach (var person in people)
             {
-                message.Data.Add(new Person(p.Id, p.LastName, p.FirstName,
-                    p.MiddleName, p.NameExtension, p.Title));
+                message.Data.Add(new Person(person.Id, person.LastName, person.FirstName,
+                    person.MiddleName, person.NameExtension, person.Title));
             }
         }
 
@@ -39,10 +39,10 @@ namespace School.People.App.Queries.Contributors
             var repository = (IStudentsRepository)provider.GetService(typeof(IStudentsRepository));
             var people = await repository.ReadAllAsync().ConfigureAwait(false);
 
-            foreach (var p in people)
+            foreach (var person in people)
             {
-                message.Data.Add(new Person(p.Id, p.LastName, p.FirstName,
-                    p.MiddleName, p.NameExtension, p.Title));
+                message.Data.Add(new Person(person.Id, person.LastName, person.FirstName,
+                    person.MiddleName, person.NameExtension, person.Title));
             }
         }
 
@@ -51,20 +51,15 @@ namespace School.People.App.Queries.Contributors
             var repository = (IArchivedPeopleRepository)provider.GetService(typeof(IArchivedPeopleRepository));
             var people = await repository.ReadAllAsync().ConfigureAwait(false);
             
-            foreach (var p in people) 
+            foreach (var person in people) 
             {
-                message.Data.Add(new Person(p.Id, p.LastName, p.FirstName, 
-                    p.MiddleName, p.NameExtension, p.Title)); 
+                message.Data.Add(new Person(person.Id, person.LastName, person.FirstName, 
+                    person.MiddleName, person.NameExtension, person.Title)); 
             }
         }
 
-        public PeopleContributor(IQueryHub hub, IServiceProvider provider)
+        public PeopleContributor(IServiceProvider provider)
         {
-            hub.RegisterContributor<PeopleContributor, ArchivedPeopleQueryResult>(this);
-            hub.RegisterContributor<PeopleContributor, AllStudentsQueryResult>(this);
-            hub.RegisterContributor<PeopleContributor, AllPersonnelQueryResult>(this);
-            hub.RegisterContributor<PeopleContributor, OtherPeopleQueryResult>(this);
-
             this.provider = provider;
         }
 

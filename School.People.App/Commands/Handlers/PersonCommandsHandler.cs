@@ -239,19 +239,6 @@ namespace School.People.App.Commands.Handlers
 
         public PersonCommandsHandler(ICommandHub commandHub, IServiceProvider provider, IEventHub eventHub)
         {
-            commandHub.RegisterHandler<UpdatePersonCommand, PersonCommandsHandler, bool>(this);
-            commandHub.RegisterHandler<InsertStudentCommand, PersonCommandsHandler, Guid?>(this);
-            commandHub.RegisterHandler<ArchiveStudentCommand, PersonCommandsHandler, bool>(this);
-            commandHub.RegisterHandler<InsertPersonnelCommand, PersonCommandsHandler, Guid?>(this);
-            commandHub.RegisterHandler<ArchivePersonnelCommand, PersonCommandsHandler, bool>(this);
-            commandHub.RegisterHandler<InsertOtherPersonCommand, PersonCommandsHandler, Guid?>(this);
-            commandHub.RegisterHandler<ArchiveOtherPersonCommand, PersonCommandsHandler, bool>(this);
-            commandHub.RegisterHandler<UpdateMotherCommand, PersonCommandsHandler, bool>(this);
-            commandHub.RegisterHandler<UpdateFatherCommand, PersonCommandsHandler, bool>(this);
-            commandHub.RegisterHandler<UpdateSpouseCommand, PersonCommandsHandler, bool>(this);
-            commandHub.RegisterHandler<InsertFatherChildCommand, PersonCommandsHandler, bool>(this);
-            commandHub.RegisterHandler<InsertMotherChildCommand, PersonCommandsHandler, bool>(this);
-
             this.commandHub = commandHub;
             this.eventHub = eventHub;
             this.provider = provider;

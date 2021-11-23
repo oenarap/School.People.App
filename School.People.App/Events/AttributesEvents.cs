@@ -3,6 +3,12 @@ using School.People.Core.Attributes;
 
 namespace School.People.App.Events
 {
+    public class FaqsUpdatedEvent : Event<IFaqs>
+    {
+        public FaqsUpdatedEvent(Guid id, IFaqs data)
+            : base(id, data) { }
+    }
+
     public class OtherInformationInsertedEvent : Event<IOtherInformation>
     {
         public OtherInformationInsertedEvent(Guid id, IOtherInformation data)

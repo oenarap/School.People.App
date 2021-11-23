@@ -30,12 +30,8 @@ namespace School.People.App.Queries.Contributors
             person?.CopyTo(message.Data);
         }
 
-        public PersonContributor(IQueryHub hub, IServiceProvider provider)
+        public PersonContributor(IServiceProvider provider)
         {
-            hub.RegisterContributor<PersonContributor, StudentQueryResult>(this);
-            hub.RegisterContributor<PersonContributor, PersonnelQueryResult>(this);
-            hub.RegisterContributor<PersonContributor, OtherPersonQueryResult>(this);
-
             this.provider = provider;
         }
 

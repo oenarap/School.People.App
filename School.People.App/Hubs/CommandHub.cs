@@ -25,31 +25,36 @@ namespace School.People.App.Hubs
             }
         }
 
-        public void RegisterHandler<TCommand, THandler, TResult>(THandler handler) where THandler : IHandle<TCommand, TResult> where TCommand : ICommand
+        /// <note>
+        /// There can be only one command handler in this current implementation.
+        /// Hence, registering a new handler type will overwrite the
+        /// existing (previously registered) one.
+        /// </note>
+        public void RegisterHandler<TCommand, THandler, TResult>() where THandler : IHandle<TCommand, TResult> where TCommand : ICommand
         {
             var key = typeof(TCommand);
 
             if (handlers.ContainsKey(key))
             {
-                handlers[key] = handler;
+                handlers[key] = typeof(THandler);
             }
             else
             {
-                handlers.Add(key, handler);
+                handlers.Add(key, typeof(THandler));
             }
         }
 
-        public void RegisterValidator<TCommand, TValidator>(TValidator validator) where TValidator : IHandle<TCommand, bool> where TCommand : ICommand
+        public void RegisterValidator<TCommand, TValidator>() where TValidator : IHandle<TCommand, bool> where TCommand : ICommand
         {
             var key = typeof(TCommand);
 
             if (validators.ContainsKey(key))
             {
-                validators[key] = validator;
+                validators[key].Add(typeof(TValidator));
             }
             else
             {
-                validators.Add(key, validator);
+                validators.Add(key, new HashSet<Type>() { typeof(TValidator) });
             }
         }
 
@@ -61,10 +66,19 @@ namespace School.People.App.Hubs
 
                 if (validators.ContainsKey(key))
                 {
-                    if (validators[key] is IHandle<TCommand, bool> handler)
+                    var counter = 0;
+
+                    foreach (var type in validators[key])
                     {
-                        return await handler.Handle(command).ConfigureAwait(false);
+                        if (provider.GetService(type) is IHandle<TCommand, bool> handler)
+                        {
+                            counter += await handler.Handle(command).ConfigureAwait(false) ? 1 : 0;
+                        }
                     }
+
+                    // a command is considered invalid if it
+                    // failed in even just one of its validators
+                    return counter == validators[key].Count;
                 }
 
                 // notify that the current command is unhandled.
@@ -99,13 +113,16 @@ namespace School.People.App.Hubs
             }
         }
 
-        public CommandHub()
+        public CommandHub(IServiceProvider provider)
         {
-            handlers = new Dictionary<Type, object>();
-            validators = new Dictionary<Type, object>();
+            
+            handlers = new Dictionary<Type, Type>();
+            validators = new Dictionary<Type, HashSet<Type>>();
+            this.provider = provider;
         }
 
-        private readonly Dictionary<Type, object> handlers;
-        private readonly Dictionary<Type, object> validators;
+        private readonly Dictionary<Type, Type> handlers;
+        private readonly Dictionary<Type, HashSet<Type>> validators;
+        private readonly IServiceProvider provider;
     }
 }

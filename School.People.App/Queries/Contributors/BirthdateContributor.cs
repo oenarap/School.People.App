@@ -19,9 +19,8 @@ namespace School.People.App.Queries.Contributors
             }
         }
 
-        public BirthdateContributor(IQueryHub hub, IServiceProvider provider)
+        public BirthdateContributor(IServiceProvider provider)
         {
-            hub.RegisterContributor<BirthdateContributor, PersonalInformationQueryResult>(this);
             this.provider = provider;
         }
 

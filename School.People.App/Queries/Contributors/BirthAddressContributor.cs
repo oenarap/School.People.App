@@ -13,9 +13,8 @@ namespace School.People.App.Queries.Contributors
             throw new NotImplementedException();
         }
 
-        public BirthAddressContributor() //IQueryHub hub, IServiceProvider provider)
+        public BirthAddressContributor() //IServiceProvider provider)
         {
-            //hub.RegisterContributor<BirthAddressContributor, PersonalInformationQueryResult>(this);
             //this.provider = provider;
         }
 

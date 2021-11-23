@@ -10,11 +10,11 @@ namespace School.People.App.Queries.Models
     public class PersonalInformationQueryData
     {
         [ThreadStatic]
-        private readonly Core.DTOs.Aggregates.PersonalInformationAggregate personalInfo;
+        private readonly PersonalInformationAggregate personalInfo;
 
         public PersonalInformationQueryData(Guid id)
         {
-            personalInfo = new Core.DTOs.Aggregates.PersonalInformationAggregate(id);
+            personalInfo = new PersonalInformationAggregate(id);
         }
 
         public Guid Id { get => personalInfo.Id; set => personalInfo.Id = value; }

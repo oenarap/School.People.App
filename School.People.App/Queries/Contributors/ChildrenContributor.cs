@@ -30,9 +30,8 @@ namespace School.People.App.Queries.Contributors
             }
         }
 
-        public ChildrenContributor(IQueryHub hub, IServiceProvider provider)
+        public ChildrenContributor(IServiceProvider provider)
         {
-            hub.RegisterContributor<ChildrenContributor, FamilyMembersQueryResult>(this);
             this.provider = provider;
         }
 

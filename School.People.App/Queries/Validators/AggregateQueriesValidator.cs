@@ -62,15 +62,8 @@ namespace School.People.App.Queries.Validators
             return null;
         }
 
-        public AggregateQueriesValidator(IQueryHub hub, IServiceProvider provider)
+        public AggregateQueriesValidator(IServiceProvider provider)
         {
-            hub.RegisterValidator<AggregateQueriesValidator, 
-                PersonalInformationQuery, PersonalInformationQueryResult>(this);
-            hub.RegisterValidator<AggregateQueriesValidator,
-                VerificationDetailsQuery, VerificationDetailsQueryResult>(this);
-            hub.RegisterValidator<AggregateQueriesValidator,
-                FamilyMembersQuery, FamilyMembersQueryResult>(this);
-
             this.provider = provider;
         }
 

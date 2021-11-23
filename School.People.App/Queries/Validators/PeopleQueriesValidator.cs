@@ -29,18 +29,5 @@ namespace School.People.App.Queries.Validators
         {
             return Task.FromResult(new AllStudentsQueryResult(query.Id, new PeopleQueryData()));
         }
-
-        public PeopleQueriesValidator(IQueryHub hub)
-        {
-            
-            hub.RegisterValidator<PeopleQueriesValidator,
-                AllStudentsQuery, AllStudentsQueryResult>(this);
-            hub.RegisterValidator<PeopleQueriesValidator,
-                AllPersonnelQuery, AllPersonnelQueryResult>(this);
-            hub.RegisterValidator<PeopleQueriesValidator,
-                OtherPeopleQuery, OtherPeopleQueryResult>(this);
-            hub.RegisterValidator<PeopleQueriesValidator,
-                ArchivedPeopleQuery, ArchivedPeopleQueryResult>(this);
-        }
     }
 }

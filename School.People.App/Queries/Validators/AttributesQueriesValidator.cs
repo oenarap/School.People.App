@@ -94,19 +94,8 @@ namespace School.People.App.Queries.Validators
             return null;
         }
 
-        public AttributesQueriesValidator(IQueryHub hub, IServiceProvider provider)
+        public AttributesQueriesValidator(IServiceProvider provider)
         {
-            hub.RegisterValidator<AttributesQueriesValidator,
-                PersonDetailsQuery, PersonDetailsQueryResult>(this);
-            hub.RegisterValidator<AttributesQueriesValidator,
-                EducationsQuery, EducationsQueryResult>(this);
-            hub.RegisterValidator<AttributesQueriesValidator,
-                EligibilitiesQuery, EligibilitiesQueryResult>(this);
-            hub.RegisterValidator<AttributesQueriesValidator,
-                WorksQuery, WorksQueryResult>(this);
-            hub.RegisterValidator<AttributesQueriesValidator,
-                CivicWorksQuery, CivicWorksQueryResult>(this);
-
             this.provider = provider;
         }
 

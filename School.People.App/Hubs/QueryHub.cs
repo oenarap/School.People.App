@@ -29,39 +29,37 @@ namespace School.People.App.Hubs
             }
         }
 
-        public void RegisterContributor<TContributor, TQueryResult>(TContributor contributor) where TQueryResult : IQueryResult where TContributor : IHandle<TQueryResult>
+        public void RegisterContributor<TContributor, TQueryResult>() where TQueryResult : IQueryResult where TContributor : IHandle<TQueryResult>
         {
             var key = typeof(TQueryResult);
 
             if (contributors.ContainsKey(key))
             {
-                contributors[key].Add(contributor);
+                contributors[key].Add(typeof(TContributor));
             }
             else
             {
-                contributors.Add(key, new HashSet<object>() { contributor });
+                contributors.Add(key, new HashSet<Type>() { typeof(TContributor) });
             }
         }
 
-        /// <summary>
-        /// Registers a query validator.
-        /// </summary>
-        /// <remarks>
-        /// There can be only one (1) validator for a certain query type. Hence,
-        /// registering a new validator for such query, will overwrite the existing one.
-        /// </remarks>
-        public void RegisterValidator<TValidator, TQuery, TQueryResult>(TValidator validator) where TQuery : IQuery
+        /// <note>
+        /// There can be only one validator for a certain query type in this current implementation.
+        /// Hence, registering a new validator type for such query, will overwrite the
+        /// existing (previously registered) one.
+        /// </note>
+        public void RegisterValidator<TValidator, TQuery, TQueryResult>() where TQuery : IQuery
             where TQueryResult : IQueryResult where TValidator : IHandle<TQuery, TQueryResult>
         {
             var key = typeof(TQuery);
 
             if (validators.ContainsKey(key))
             {
-                validators[key] = validator;
+                validators[key] = typeof(TValidator);
             }
             else
             {
-                validators.Add(key, validator);
+                validators.Add(key, typeof(TValidator));
             }
         }
 
@@ -73,7 +71,7 @@ namespace School.People.App.Hubs
 
                 if (validators.ContainsKey(key))
                 {
-                    if (validators[key] is IHandle<TQuery, TQueryResult> handler)
+                    if (provider.GetService(validators[key]) is IHandle<TQuery, TQueryResult> handler)
                     {
                         return await handler.Handle(query).ConfigureAwait(false);
                     }
@@ -88,7 +86,7 @@ namespace School.People.App.Hubs
             }
         }
 
-        private void Handle<TQueryResult>(ref TQueryResult result) where TQueryResult : IQueryResult
+        private void Handle<TQueryResult>(ref TQueryResult message) where TQueryResult : IQueryResult
         {
             try
             {
@@ -98,11 +96,11 @@ namespace School.People.App.Hubs
                 {
                     var tasks = new List<Task>();
 
-                    foreach (var contributor in contributors[key])
+                    foreach (var type in contributors[key])
                     {
-                        if (contributor is IHandle<TQueryResult> handler)
+                        if (provider.GetService(type) is IHandle<TQueryResult> handler)
                         {
-                            tasks.Add(handler.Handle(result));
+                            tasks.Add(handler.Handle(message));
                         }
                     }
 
@@ -110,8 +108,8 @@ namespace School.People.App.Hubs
                 }
                 else
                 {
-                    // notify that the current query result is unhandled.
-                    throw new UnhandledMessageException(result);
+                    // notify that the current query message is unhandled.
+                    throw new UnhandledMessageException(message);
                 }
             }
             catch (Exception ex) 
@@ -120,13 +118,15 @@ namespace School.People.App.Hubs
             }
         }
 
-        public QueryHub()
+        public QueryHub(IServiceProvider provider)
         { 
-            contributors = new Dictionary<Type, HashSet<object>>();
-            validators = new Dictionary<Type, object>();
+            contributors = new Dictionary<Type, HashSet<Type>>();
+            validators = new Dictionary<Type, Type>();
+            this.provider = provider;
         }
 
-        private readonly Dictionary<Type, HashSet<object>> contributors;
-        private readonly Dictionary<Type, object> validators;
+        private readonly Dictionary<Type, HashSet<Type>> contributors;
+        private readonly Dictionary<Type, Type> validators;
+        private readonly IServiceProvider provider;
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using School.People.Core;
+﻿using School.People.Core;
 using System.Threading.Tasks;
 using Apps.Communication.Core;
 
@@ -20,52 +19,44 @@ namespace School.People.App.Commands.Validators
         {
             if (person != null)
             {
-                if (IsValidLastName(person.LastName) && IsValidFirstName(person.FirstName) &&
-                    IsValidLastName(person.MiddleName) && IsValidExtensionName(person.NameExtension) &&
-                    IsValidTitle(person.Title)) { return true; }
+                if (IsValidNameString(person.LastName, Constants.PersonSurnameMaxLength) && 
+                    IsValidNameString(person.MiddleName, Constants.PersonSurnameMaxLength) &&
+                    IsValidNameString(person.FirstName, Constants.CommonNamesAndTitlesMaxLength) &&
+                    IsValidNameString(person.NameExtension, Constants.PersonNameExtensionMaxLength) &&
+                    IsValidNameString(person.Title, Constants.PersonTitleMaxLength)) { return true; }
             }
             return false;
         }
 
-        private bool IsValidFirstName(string firstName)
+        // O(n) name string validation method
+        private bool IsValidNameString(string nameString, int maxLength)
         {
-            if (string.IsNullOrEmpty(firstName) || string.IsNullOrWhiteSpace(firstName) || !IsNonNumeric(firstName)) { return false; }
-            return firstName.Length >= Constants.PersonNameFieldsMinLength && firstName.Length <= Constants.CommonNamesAndTitlesMaxLength;
-        }
+            if (nameString.Length == 0 || nameString.Length > maxLength) { return false; }
 
-        private bool IsValidLastName(string surname)
-        {
-            if (string.IsNullOrEmpty(surname) || string.IsNullOrWhiteSpace(surname) || !IsNonNumeric(surname)) { return false; }
-            return surname.Length >= Constants.PersonNameFieldsMinLength && surname.Length <= Constants.PersonSurnameMaxLength;
-        }
+            var letters = 0;
+            var spaces = 0;
+            var others = 0;
 
-        private bool IsValidExtensionName(string extensionName)
-        {
-            if (extensionName != null && IsNonNumeric(extensionName)) 
+            foreach (var c in nameString)
             {
-                return extensionName.Length <= Constants.PersonNameExtensionMaxLength;
+                if (char.IsLetter(c))
+                {
+                    letters++;
+                }
+                else
+                {
+                    if (char.IsWhiteSpace(c))
+                    {
+                        spaces++;
+                    }
+                    else if (c == '-' || c == '.')
+                    {
+                        others++;
+                    }
+                }
             }
-            return true;
-        }
 
-        private bool IsValidTitle(string title)
-        {
-            if (string.IsNullOrEmpty(title)) { return true; }
-            return title.Length <= Constants.PersonTitleMaxLength;
-        }
-
-        private bool IsNonNumeric(string str)
-        {
-            string normalizedString = str.Replace(" ","").Replace("-", "").Replace(".", "");
-            return normalizedString.All(char.IsLetter);
-        }
-
-        public PersonValidator(ICommandHub hub)
-        {
-            hub.RegisterValidator<InsertStudentCommand, PersonValidator>(this);
-            hub.RegisterValidator<UpdatePersonCommand, PersonValidator>(this);
-            hub.RegisterValidator<InsertPersonnelCommand, PersonValidator>(this);
-            hub.RegisterValidator<InsertOtherPersonCommand, PersonValidator>(this);
+            return letters == 0 ? false : (letters + spaces + others) == nameString.Length;
         }
     }
 }

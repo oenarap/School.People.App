@@ -21,9 +21,8 @@ namespace School.People.App.Queries.Contributors
             }
         }
 
-        public CitizenshipContributor(IQueryHub hub, IServiceProvider provider)
+        public CitizenshipContributor(IServiceProvider provider)
         {
-            hub.RegisterContributor<CitizenshipContributor, PersonalInformationQueryResult>(this);
             this.provider = provider;
         }
 

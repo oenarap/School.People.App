@@ -6,13 +6,35 @@ using School.People.Core.Repositories;
 
 namespace School.People.App.Commands.Handlers
 {
-    public class AttributeCommandsHandler : IHandle<InsertWorkCommand, Guid?>, IHandle<UpdateWorkCommand, bool>, IHandle<DeleteWorkCommand, bool>,
-        IHandle<InsertEligibilityCommand, Guid?>, IHandle<UpdateEligibilityCommand, bool>, IHandle<DeleteEligibilityCommand, bool>,
-        IHandle<InsertEducationCommand, Guid?>, IHandle<UpdateEducationCommand, bool>, IHandle<DeleteEducationCommand, bool>,
-        IHandle<InsertCivicWorkCommand, Guid?>, IHandle<UpdateCivicWorkCommand, bool>, IHandle<DeleteCivicWorkCommand, bool>,
-        IHandle<InsertTrainingCommand, Guid?>, IHandle<UpdateTrainingCommand, bool>, IHandle<DeleteTrainingCommand, bool>,
-        IHandle<InsertOtherInformationCommand, Guid?>, IHandle<UpdateOtherInformationCommand, bool>, IHandle<DeleteOtherInformationCommand, bool>
+    public class AttributeCommandsHandler : IHandle<InsertWorkCommand, Guid?>, IHandle<UpdateWorkCommand, bool>, 
+        IHandle<DeleteWorkCommand, bool>, IHandle<InsertEligibilityCommand, Guid?>, 
+        IHandle<UpdateEligibilityCommand, bool>, IHandle<DeleteEligibilityCommand, bool>,
+        IHandle<InsertEducationCommand, Guid?>, IHandle<UpdateEducationCommand, bool>, 
+        IHandle<DeleteEducationCommand, bool>, IHandle<InsertCivicWorkCommand, Guid?>, 
+        IHandle<UpdateCivicWorkCommand, bool>, IHandle<DeleteCivicWorkCommand, bool>, 
+        IHandle<InsertTrainingCommand, Guid?>, IHandle<UpdateTrainingCommand, bool>, 
+        IHandle<DeleteTrainingCommand, bool>, IHandle<InsertOtherInformationCommand, Guid?>, 
+        IHandle<UpdateOtherInformationCommand, bool>, IHandle<DeleteOtherInformationCommand, bool>,
+        IHandle<UpdateFaqsCommand, bool>
     {
+        public async Task<bool> Handle(UpdateFaqsCommand message)
+        {
+            try
+            {
+                var repository = (IFaqsRepository)provider.GetService(typeof(IFaqsRepository));
+                var result = await repository.UpdateAsync(message.Data).ConfigureAwait(false);
+
+                if (result == true) { eventHub.Dispatch(new FaqsUpdatedEvent(message.Id, message.Data)); }
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+
         public async Task<Guid?> Handle(InsertOtherInformationCommand message)
         {
             try
@@ -63,6 +85,7 @@ namespace School.People.App.Commands.Handlers
                 throw new Exception(ex.Message);
             }
         }
+
 
         public async Task<Guid?> Handle(InsertTrainingCommand message)
         {
@@ -115,6 +138,7 @@ namespace School.People.App.Commands.Handlers
             }
         }
 
+
         public async Task<Guid?> Handle(InsertCivicWorkCommand message)
         {
             try
@@ -165,6 +189,7 @@ namespace School.People.App.Commands.Handlers
                 throw new Exception(ex.Message);
             }
         }
+
 
         public async Task<Guid?> Handle(InsertWorkCommand message)
         {
@@ -217,6 +242,7 @@ namespace School.People.App.Commands.Handlers
             }
         }
 
+
         public async Task<bool> Handle(DeleteEducationCommand message)
         {
             try
@@ -267,6 +293,7 @@ namespace School.People.App.Commands.Handlers
                 throw new Exception(ex.Message);
             }
         }
+
 
         public async Task<Guid?> Handle(InsertEligibilityCommand message)
         {
@@ -319,27 +346,9 @@ namespace School.People.App.Commands.Handlers
             }
         }
 
-        public AttributeCommandsHandler(ICommandHub commandHub, IServiceProvider provider, IEventHub eventHub)
-        {
-            commandHub.RegisterHandler<InsertOtherInformationCommand, AttributeCommandsHandler, Guid?>(this);
-            commandHub.RegisterHandler<UpdateOtherInformationCommand, AttributeCommandsHandler, bool>(this);
-            commandHub.RegisterHandler<DeleteOtherInformationCommand, AttributeCommandsHandler, bool>(this);
-            commandHub.RegisterHandler<InsertTrainingCommand, AttributeCommandsHandler, Guid?>(this);
-            commandHub.RegisterHandler<UpdateTrainingCommand, AttributeCommandsHandler, bool>(this);
-            commandHub.RegisterHandler<DeleteTrainingCommand, AttributeCommandsHandler, bool>(this);
-            commandHub.RegisterHandler<InsertCivicWorkCommand, AttributeCommandsHandler, Guid?>(this);
-            commandHub.RegisterHandler<UpdateCivicWorkCommand, AttributeCommandsHandler, bool>(this);
-            commandHub.RegisterHandler<DeleteCivicWorkCommand, AttributeCommandsHandler, bool>(this);
-            commandHub.RegisterHandler<InsertWorkCommand, AttributeCommandsHandler, Guid?>(this);
-            commandHub.RegisterHandler<UpdateWorkCommand, AttributeCommandsHandler, bool>(this);
-            commandHub.RegisterHandler<DeleteWorkCommand, AttributeCommandsHandler, bool>(this);
-            commandHub.RegisterHandler<DeleteEducationCommand, AttributeCommandsHandler, bool>(this);
-            commandHub.RegisterHandler<UpdateEducationCommand, AttributeCommandsHandler, bool>(this);
-            commandHub.RegisterHandler<InsertEducationCommand, AttributeCommandsHandler, Guid?>(this);
-            commandHub.RegisterHandler<InsertEligibilityCommand, AttributeCommandsHandler, Guid?>(this);
-            commandHub.RegisterHandler<UpdateEligibilityCommand, AttributeCommandsHandler, bool>(this);
-            commandHub.RegisterHandler<DeleteEligibilityCommand, AttributeCommandsHandler, bool>(this);
 
+        public AttributeCommandsHandler(IServiceProvider provider, IEventHub eventHub)
+        {
             this.eventHub = eventHub;
             this.provider = provider;
         }

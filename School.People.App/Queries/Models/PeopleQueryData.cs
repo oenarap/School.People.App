@@ -15,7 +15,7 @@ namespace School.People.App.Queries.Models
             set { people[index] = value; }
         }
 
-        public IPerson[] ToPersonArray => people.ToArray();
+        public IPerson[] ToPersonArray() => people.ToArray();
 
         public PeopleQueryData()
         {

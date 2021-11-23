@@ -24,9 +24,8 @@ namespace School.People.App.Queries.Contributors
             }
         }
 
-        public AgencyMemberDetailsContributor(IQueryHub hub, IServiceProvider provider)
+        public AgencyMemberDetailsContributor(IServiceProvider provider)
         {
-            hub.RegisterContributor<AgencyMemberDetailsContributor, PersonalInformationQueryResult>(this);
             this.provider = provider;
         }
 

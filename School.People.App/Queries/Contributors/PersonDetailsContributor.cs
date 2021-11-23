@@ -33,9 +33,8 @@ namespace School.People.App.Queries.Contributors
             if (details != null) { details.CopyTo(message.Data); }
         }
 
-        public PersonDetailsContributor(IQueryHub hub, IServiceProvider provider)
+        public PersonDetailsContributor(IServiceProvider provider)
         {
-            hub.RegisterContributor<PersonDetailsContributor, PersonalInformationQueryResult>(this);
             this.provider = provider;
         }
 
