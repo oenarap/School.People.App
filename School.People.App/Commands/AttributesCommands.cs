@@ -70,10 +70,10 @@ namespace School.People.App.Commands
             : base(id, data) { }
     }
 
-    public class InsertOtherInformationCommand : Command<IOtherInformation>
+    public class InsertOtherInformationCommand : Command<IOtherInformation, Guid>
     {
-        public InsertOtherInformationCommand(Guid id, IOtherInformation data, Guid key)
-            : base(id, data, key) { }
+        public InsertOtherInformationCommand(Guid id, IOtherInformation data, Guid param)
+            : base(id, data, param) { }
     }
 
     public class DeleteTrainingCommand : Command<ITraining>
@@ -88,10 +88,10 @@ namespace School.People.App.Commands
             : base(id, data) { }
     }
 
-    public class InsertTrainingCommand : Command<ITraining>
+    public class InsertTrainingCommand : Command<ITraining, Guid>
     {
-        public InsertTrainingCommand(Guid id, ITraining data, Guid key)
-            : base(id, data, key) { }
+        public InsertTrainingCommand(Guid id, ITraining data, Guid param)
+            : base(id, data, param) { }
     }
 
     public class DeleteCivicWorkCommand : Command<ICivicWork>
@@ -106,10 +106,10 @@ namespace School.People.App.Commands
             : base(id, data) { }
     }
 
-    public class InsertCivicWorkCommand : Command<ICivicWork>
+    public class InsertCivicWorkCommand : Command<ICivicWork, Guid>
     {
-        public InsertCivicWorkCommand(Guid id, ICivicWork data, Guid key)
-            : base(id, data, key) { }
+        public InsertCivicWorkCommand(Guid id, ICivicWork data, Guid param)
+            : base(id, data, param) { }
     }
 
     public class DeleteWorkCommand : Command<IWork>
@@ -124,10 +124,10 @@ namespace School.People.App.Commands
             : base(id, data) { }
     }
 
-    public class InsertWorkCommand : Command<IWork>
+    public class InsertWorkCommand : Command<IWork, Guid>
     {
-        public InsertWorkCommand(Guid id, IWork data, Guid key)
-            : base(id, data, key) { }
+        public InsertWorkCommand(Guid id, IWork data, Guid param)
+            : base(id, data, param) { }
     }
 
     public class DeleteEligibilityCommand : Command<IEligibility>
@@ -160,10 +160,10 @@ namespace School.People.App.Commands
             : base(id, data) { }
     }
 
-    public class InsertEducationCommand : Command<IEducation>
+    public class InsertEducationCommand : Command<IEducation, Guid>
     {
-        public InsertEducationCommand(Guid id, IEducation data, Guid key)
-            : base(id, data, key) { }
+        public InsertEducationCommand(Guid id, IEducation data, Guid param)
+            : base(id, data, param) { }
     }
 
     public class UpdateFamilyIdsCommand : Command<IFamilyIds>

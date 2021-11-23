@@ -3,34 +3,34 @@ using School.People.Core;
 
 namespace School.People.App.Commands
 {
-    public class InsertFatherChildCommand : Command<IPerson>
+    public class InsertFatherChildCommand : Command<IPerson, Guid>
     {
-        public InsertFatherChildCommand(Guid id, IPerson data, Guid dataId)
-           : base(id, data, dataId) { }
+        public InsertFatherChildCommand(Guid id, IPerson data, Guid param)
+           : base(id, data, param) { }
     }
 
-    public class InsertMotherChildCommand : Command<IPerson>
+    public class InsertMotherChildCommand : Command<IPerson, Guid>
     {
-        public InsertMotherChildCommand(Guid id, IPerson data, Guid dataId)
-           : base(id, data, dataId) { }
+        public InsertMotherChildCommand(Guid id, IPerson data, Guid param)
+           : base(id, data, param) { }
     }
 
-    public class UpdateSpouseCommand : Command<IPerson>
+    public class UpdateSpouseCommand : Command<IPerson, Guid>
     {
-        public UpdateSpouseCommand(Guid id, IPerson data, Guid dataId)
-           : base(id, data, dataId) { }
+        public UpdateSpouseCommand(Guid id, IPerson data, Guid param)
+           : base(id, data, param) { }
     }
 
-    public class UpdateFatherCommand : Command<IPerson>
+    public class UpdateFatherCommand : Command<IPerson, Guid>
     {
-        public UpdateFatherCommand(Guid id, IPerson data, Guid dataId)
-           : base(id, data, dataId) { }
+        public UpdateFatherCommand(Guid id, IPerson data, Guid param)
+           : base(id, data, param) { }
     }
 
-    public class UpdateMotherCommand : Command<IPerson>
+    public class UpdateMotherCommand : Command<IPerson, Guid>
     {
-        public UpdateMotherCommand(Guid id, IPerson data, Guid dataId)
-           : base(id, data, dataId) { }
+        public UpdateMotherCommand(Guid id, IPerson data, Guid param)
+           : base(id, data, param) { }
     }
 
     public class ArchiveStudentCommand : Command<IPerson>
