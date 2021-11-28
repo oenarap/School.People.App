@@ -8,19 +8,26 @@ namespace School.People.App.Queries.Contributors
 {
     public class AgencyMemberDetailsContributor : IHandle<PersonalInformationQueryResult>
     {
-        public async Task Handle(PersonalInformationQueryResult result)
+        public async Task Handle(PersonalInformationQueryResult message)
         {
-            var repository = (IAgencyMemberDetailsRepository)provider.GetService(typeof(IAgencyMemberDetailsRepository));
-            var details = await repository.ReadAsync(result.Data.Id).ConfigureAwait(false);
-
-            if (details != null)
+            try
             {
-                result.Data.AgencyId = details.AgencyId;
-                result.Data.GsisIdNumber = details.GsisIdNumber;
-                result.Data.PagIbigIdNumber = details.PagIbigIdNumber;
-                result.Data.PhilhealthNumber = details.PhilhealthNumber;
-                result.Data.SssNumber = details.SssNumber;
-                result.Data.Tin = details.Tin;
+                var repository = (IAgencyMemberDetailsRepository)provider.GetService(typeof(IAgencyMemberDetailsRepository));
+                var details = await repository.ReadAsync(message.Parameter).ConfigureAwait(false);
+
+                if (details != null)
+                {
+                    message.Data.AgencyId = details.AgencyId;
+                    message.Data.GsisIdNumber = details.GsisIdNumber;
+                    message.Data.PagIbigIdNumber = details.PagIbigIdNumber;
+                    message.Data.PhilhealthNumber = details.PhilhealthNumber;
+                    message.Data.SssNumber = details.SssNumber;
+                    message.Data.Tin = details.Tin;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex.InnerException);
             }
         }
 

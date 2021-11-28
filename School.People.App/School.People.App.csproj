@@ -1,17 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Authors>Jake B. Parane</Authors>
     <Description>A class library containing the School.People application logic.</Description>
     <Copyright>© 2021</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>school hrm</PackageTags>
-    <Version>1.0.6</Version>
+    <Version>6.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="School.People.Core" Version="1.1.7" />
+    <PackageReference Include="School.People.Core" Version="6.0.0" />
   </ItemGroup>
 
 </Project>

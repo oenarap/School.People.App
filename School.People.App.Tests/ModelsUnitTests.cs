@@ -1,4 +1,4 @@
-using School.People.App.Queries.Models;
+using School.People.App.Queries.Data;
 using System;
 using System.Threading;
 using Xunit;
@@ -13,7 +13,7 @@ namespace School.People.App.Tests
             string country, string mobileNumber) {
 
             var id = Guid.NewGuid();
-            var model = new PersonalInformationQueryData(id);
+            var model = new PersonalInformationQueryData();
             var birthdate = DateTimeOffset.UtcNow;
 
             var BirthdateThread = new Thread(() =>
@@ -44,7 +44,6 @@ namespace School.People.App.Tests
 
             Thread.Sleep(1000);
 
-            Assert.Equal(id, model.Id);
             Assert.Equal(birthdate, model.Birthdate);
             Assert.Same(dualCitizenshipMode, model.DualCitizenshipMode);
             Assert.Same(country, model.Country);

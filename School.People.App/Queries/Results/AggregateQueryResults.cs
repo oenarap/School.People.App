@@ -1,23 +1,23 @@
-﻿using School.People.App.Queries.Models;
+﻿using School.People.App.Queries.Data;
 using System;
 
 namespace School.People.App.Queries.Results
 {
-    public class VerificationDetailsQueryResult : QueryResult<VerificationDetailsQueryData>
+    public class VerificationDetailsQueryResult : QueryResult<VerificationDetailsQueryData, Guid>
     {
-        public VerificationDetailsQueryResult(Guid id, VerificationDetailsQueryData data)
-            : base(id, data) { }
+        public VerificationDetailsQueryResult(Guid id, VerificationDetailsQueryData data, Guid parameter)
+            : base(id, data, parameter) { }
     }
 
-    public class FamilyMembersQueryResult : QueryResult<FamilyMembersQueryData>
+    public class FamilyMembersQueryResult : QueryResult<FamilyMembersQueryData, Guid>
     {
-        public FamilyMembersQueryResult(Guid id, FamilyMembersQueryData data)
-            : base(id, data) { }
+        public FamilyMembersQueryResult(Guid id, FamilyMembersQueryData data, Guid parameter)
+            : base(id, data, parameter) { }
     }
 
-    public class PersonalInformationQueryResult : QueryResult<PersonalInformationQueryData>
+    public class PersonalInformationQueryResult : QueryResult<PersonalInformationQueryData, Guid>
     {
-        public PersonalInformationQueryResult(Guid id, PersonalInformationQueryData data)
-            : base(id, data) { }
+        public PersonalInformationQueryResult(Guid id, PersonalInformationQueryData data, Guid parameter)
+            : base(id, data, parameter) { }
     }
 }

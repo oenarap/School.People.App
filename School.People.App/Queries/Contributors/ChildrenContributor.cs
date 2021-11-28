@@ -2,9 +2,9 @@
 using School.People.Core;
 using System.Threading.Tasks;
 using Apps.Communication.Core;
-using System.Collections.Generic;
 using School.People.Core.Repositories;
 using School.People.App.Queries.Results;
+using School.People.Core.Dtos;
 
 namespace School.People.App.Queries.Contributors
 {
@@ -12,21 +12,37 @@ namespace School.People.App.Queries.Contributors
     {
         public async Task Handle(FamilyMembersQueryResult message)
         {
-            var repository = (IChildrenIdsRepository)provider.GetService(typeof(IChildrenIdsRepository));
-            var childrenIds = await repository.ReadAllAsync(message.Data.Id).ConfigureAwait(false);
-
-            if (childrenIds != null)
+            try
             {
-                var personsRepository = (IPersonRepository)provider.GetService(typeof(IPersonRepository));
-                var children = new List<IPerson>();
+                var repository = (IChildrenIdsRepository)provider.GetService(typeof(IChildrenIdsRepository));
+                var childrenIds = await repository.ReadAllAsync(message.Parameter).ConfigureAwait(false);
 
-                foreach (var id in childrenIds)
+                if (childrenIds != null)
                 {
-                    var child = await personsRepository.ReadAsync(id).ConfigureAwait(false);
-                    if (child != null) { children.Add(child); }
-                }
+                    var personsRepository = (IPersonRepository)provider.GetService(typeof(IPersonRepository));
 
-                message.Data.Children = children;
+                    foreach (var id in childrenIds)
+                    {
+                        var child = await personsRepository.ReadAsync(id).ConfigureAwait(false);
+                        if (child != null)
+                        {
+                            message.Data.FamilyMembers.Add(new RelatedPerson()
+                            {
+                                Id = child.Id,
+                                LastName = child.LastName,
+                                FirstName = child.FirstName,
+                                MiddleName = child.MiddleName,
+                                NameExtension = child.NameExtension,
+                                Title = child.Title,
+                                Relationship = Relationship.Child
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex.InnerException);
             }
         }
 

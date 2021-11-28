@@ -1,6 +1,6 @@
 ﻿using System;
 using School.People.Core.Attributes;
-using School.People.Core.DTOs.Aggregates;
+using School.People.Core.Dtos.Aggregates;
 
 namespace School.People.App.Commands
 {
@@ -40,9 +40,9 @@ namespace School.People.App.Commands
             : base(id, data) { }
     }
 
-    public class UpdateVerificationDetailsCommand : Command<VerificationDetailsAggregate>
+    public class UpdateVerificationDetailsCommand : Command<IVerificationDetails>
     {
-        public UpdateVerificationDetailsCommand(Guid id, VerificationDetailsAggregate data)
+        public UpdateVerificationDetailsCommand(Guid id, IVerificationDetails data)
             : base(id, data) { }
     }
 

@@ -1,14 +1,14 @@
 ﻿using System;
 using School.People.Core.Attributes;
 using System.Collections.Generic;
-using School.People.Core.DTOs;
+using School.People.App.Queries.Data;
 
 namespace School.People.App.Queries.Results
 {
-    public class FaqsQueryResult : QueryResult<IFaqs>
+    public class FaqsQueryResult : QueryResult<IFaqs, Guid>
     {
-        public FaqsQueryResult(Guid id, IFaqs data)
-            : base(id, data) { }
+        public FaqsQueryResult(Guid id, IFaqs data, Guid parameter)
+            : base(id, data, parameter) { }
     }
 
     public class OtherInformationQueryResult : QueryResult<List<IOtherInformation>, Guid>
@@ -47,9 +47,9 @@ namespace School.People.App.Queries.Results
             : base(id, data, parameter) { }
     }
 
-    public class PersonDetailsQueryResult : QueryResult<PersonDetails>
+    public class PersonDetailsQueryResult : QueryResult<PersonDetailsQueryData, Guid>
     {
-        public PersonDetailsQueryResult(Guid id, PersonDetails data)
-            : base(id, data) { }
+        public PersonDetailsQueryResult(Guid id, PersonDetailsQueryData data, Guid parameter)
+            : base(id, data, parameter) { }
     }
 }

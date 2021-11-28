@@ -23,7 +23,7 @@ namespace School.People.App.Commands.Handlers
                 if (result is Guid id)
                 {
                     var repository = (IMotherIdsRepository)provider.GetService(typeof(IMotherIdsRepository));
-                    return await repository.UpdateAsync(id, (Guid)message.DataId).ConfigureAwait(false);
+                    return await repository.UpdateAsync(id, message.Parameter).ConfigureAwait(false);
                 }
 
                 return false;
@@ -44,7 +44,7 @@ namespace School.People.App.Commands.Handlers
                 if (result is Guid id)
                 {
                     var repository = (IFatherIdsRepository)provider.GetService(typeof(IFatherIdsRepository));
-                    return await repository.UpdateAsync(id, (Guid)message.DataId).ConfigureAwait(false);
+                    return await repository.UpdateAsync(id, message.Parameter).ConfigureAwait(false);
                 }
 
                 return false;
@@ -65,7 +65,7 @@ namespace School.People.App.Commands.Handlers
                 if (result is Guid id)
                 {
                     var repository = (ISpouseIdsRepository)provider.GetService(typeof(ISpouseIdsRepository));
-                    return await repository.UpdateAsync((Guid)message.DataId, id).ConfigureAwait(false);
+                    return await repository.UpdateAsync(message.Parameter, id).ConfigureAwait(false);
                 }
 
                 return false;
@@ -86,7 +86,7 @@ namespace School.People.App.Commands.Handlers
                 if (result is Guid id)
                 {
                     var repository = (IFatherIdsRepository)provider.GetService(typeof(IFatherIdsRepository));
-                    return await repository.UpdateAsync((Guid)message.DataId, id).ConfigureAwait(false);
+                    return await repository.UpdateAsync(message.Parameter, id).ConfigureAwait(false);
                 }
 
                 return false;
@@ -107,7 +107,7 @@ namespace School.People.App.Commands.Handlers
                 if (result is Guid id)
                 {
                     var repository = (IMotherIdsRepository)provider.GetService(typeof(IMotherIdsRepository));
-                    return await repository.UpdateAsync((Guid)message.DataId, id).ConfigureAwait(false);
+                    return await repository.UpdateAsync(message.Parameter, id).ConfigureAwait(false);
                 }
 
                 return false;

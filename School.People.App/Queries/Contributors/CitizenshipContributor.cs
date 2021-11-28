@@ -8,16 +8,23 @@ namespace School.People.App.Queries.Contributors
 {
     public class CitizenshipContributor : IHandle<PersonalInformationQueryResult>
     {
-        public async Task Handle(PersonalInformationQueryResult result)
+        public async Task Handle(PersonalInformationQueryResult message)
         {
-            var repository = (ICitizenshipsRepository)provider.GetService(typeof(ICitizenshipsRepository));
-            var citizenship = await repository.ReadAsync(result.Data.Id).ConfigureAwait(false);
-
-            if (citizenship != null)
+            try
             {
-                result.Data.Country = citizenship.Country;
-                result.Data.DualCitizenship = citizenship.DualCitizenship;
-                result.Data.DualCitizenshipMode = citizenship.DualCitizenshipMode;
+                var repository = (ICitizenshipsRepository)provider.GetService(typeof(ICitizenshipsRepository));
+                var citizenship = await repository.ReadAsync(message.Parameter).ConfigureAwait(false);
+
+                if (citizenship != null)
+                {
+                    message.Data.Country = citizenship.Country;
+                    message.Data.DualCitizenship = citizenship.DualCitizenship;
+                    message.Data.DualCitizenshipMode = citizenship.DualCitizenshipMode;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex.InnerException);
             }
         }
 

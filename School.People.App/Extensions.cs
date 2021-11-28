@@ -1,8 +1,8 @@
 ﻿using System;
 using School.People.Core;
 using System.Threading.Tasks;
-using School.People.Core.DTOs;
 using School.People.Core.Attributes;
+using School.People.Core.Dtos;
 
 namespace School.People.App
 {
@@ -22,36 +22,36 @@ namespace School.People.App
 
         public static string FullName(this IPerson person)
         {
-            string nameExtension = person.NameExtension == null ? null : $", {person.NameExtension}";
-            return $"{person.Title} {person.FirstName} {person.MiddleName} {person.LastName}{nameExtension}";
+            var title = person.Title == null ? null : $"{person.Title} ";
+            var extension = person.NameExtension == null ? null : $", {person.NameExtension}";
+            return $"{title}{person.FirstName} {person.MiddleName} {person.LastName}{extension}";
         }
 
-        /// <summary>
-        /// Copies the person's details except the Id.
-        /// </summary>
-        public static void CopyTo(this IPerson person, Person other)
+        public static Person Copy(this IPerson person)
         {
-            if (other != null)
+            return new Person()
             {
-                other.FirstName = person.FirstName;
-                other.MiddleName = person.MiddleName;
-                other.LastName = person.LastName;
-                other.NameExtension = person.NameExtension;
-                other.Title = person.Title;
-            }
+                Id = person.Id,
+                LastName = person.LastName,
+                FirstName = person.FirstName,
+                MiddleName = person.MiddleName,
+                NameExtension = person.NameExtension,
+                Title = person.Title,
+            };
         }
 
-        public static void CopyTo(this IPersonDetails details, PersonDetails other)
+        public static PersonDetails Copy(this IPersonDetails details)
         {
-            if (other != null)
+            return new PersonDetails()
             {
-                other.Sex = details.Sex;
-                other.CivilStatus = details.CivilStatus;
-                other.OtherCivilStatus = details.OtherCivilStatus;
-                other.HeightInCentimeters = details.HeightInCentimeters;
-                other.WeightInKilograms = details.WeightInKilograms;
-                other.BloodType = details.BloodType;
-            }
+                Id=details.Id,
+                CivilStatus = details.CivilStatus,
+                OtherCivilStatus = details.OtherCivilStatus,
+                HeightInCentimeters = details.HeightInCentimeters,
+                WeightInKilograms = details.WeightInKilograms,
+                BloodType = details.BloodType,
+                Sex = details.Sex
+            };
         }
     }
 }

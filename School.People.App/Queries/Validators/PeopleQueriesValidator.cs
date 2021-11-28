@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Apps.Communication.Core;
 using School.People.App.Queries.Results;
-using School.People.App.Queries.Models;
+using School.People.App.Queries.Data;
 
 namespace School.People.App.Queries.Validators
 {

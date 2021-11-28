@@ -11,23 +11,44 @@ namespace School.People.App.Queries.Contributors
     {
         public async Task Handle(OtherPersonQueryResult message)
         {
-            var repository = (IOtherPeopleRepository)provider.GetService(typeof(IOtherPeopleRepository));
-            var person = await repository.ReadAsync(message.Data.Id).ConfigureAwait(false);
-            person?.CopyTo(message.Data);
+            try
+            {
+                var repository = (IOtherPeopleRepository)provider.GetService(typeof(IOtherPeopleRepository));
+                var person = await repository.ReadAsync(message.Parameter).ConfigureAwait(false);
+                message.Data.Person = person;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex.InnerException);
+            }
         }
 
         public async Task Handle(PersonnelQueryResult message)
         {
-            var repository = (IPersonnelRepository)provider.GetService(typeof(IPersonnelRepository));
-            var person = await repository.ReadAsync(message.Data.Id).ConfigureAwait(false);
-            person?.CopyTo(message.Data);
+            try
+            {
+                var repository = (IPersonnelRepository)provider.GetService(typeof(IPersonnelRepository));
+                var person = await repository.ReadAsync(message.Parameter).ConfigureAwait(false);
+                message.Data.Person = person;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex.InnerException);
+            }
         }
 
         public async Task Handle(StudentQueryResult message)
         {
-            var repository = (IStudentsRepository)provider.GetService(typeof(IStudentsRepository));
-            var person = await repository.ReadAsync(message.Data.Id).ConfigureAwait(false);
-            person?.CopyTo(message.Data);
+            try
+            {
+                var repository = (IStudentsRepository)provider.GetService(typeof(IStudentsRepository));
+                var person = await repository.ReadAsync(message.Parameter).ConfigureAwait(false);
+                message.Data.Person = person;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex.InnerException);
+            }
         }
 
         public PersonContributor(IServiceProvider provider)

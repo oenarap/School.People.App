@@ -2,8 +2,8 @@
 using System.Threading.Tasks;
 using Apps.Communication.Core;
 using School.People.App.Queries.Results;
-using School.People.App.Queries.Models;
 using School.People.Core.Repositories;
+using School.People.App.Queries.Data;
 
 namespace School.People.App.Queries.Validators
 {
@@ -11,55 +11,78 @@ namespace School.People.App.Queries.Validators
         IHandle<VerificationDetailsQuery, VerificationDetailsQueryResult>,
         IHandle<FamilyMembersQuery, FamilyMembersQueryResult>
     {
-        public async Task<PersonalInformationQueryResult> Handle(PersonalInformationQuery query)
+        public async Task<PersonalInformationQueryResult> Handle(PersonalInformationQuery message)
         {
-            if (query.Parameter != Guid.Empty)
+            try
             {
-                var repository = (IPersonRepository)provider.GetService(typeof(IPersonRepository));
-                var person = await repository.ReadAsync(query.Parameter).ConfigureAwait(false);
-
-                if (person != null)
+                if (message.Parameter != Guid.Empty)
                 {
-                    var data = new PersonalInformationQueryData(person.Id);
-                    return new PersonalInformationQueryResult(query.Id, data);
-                }
-            }
+                    var repository = (IPersonRepository)provider.GetService(typeof(IPersonRepository));
+                    var person = await repository.ReadAsync(message.Parameter).ConfigureAwait(false);
 
-            return null;
+                    if (person != null)
+                    {
+                        return new PersonalInformationQueryResult(message.Id,
+                            new PersonalInformationQueryData(), person.Id);
+                    }
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex.InnerException);
+            }
         }
 
-        public async Task<VerificationDetailsQueryResult> Handle(VerificationDetailsQuery query)
+        public async Task<VerificationDetailsQueryResult> Handle(VerificationDetailsQuery message)
         {
-            if (query.Parameter != Guid.Empty)
+            try
             {
-                var repository = (IPersonRepository)provider.GetService(typeof(IPersonRepository));
-                var person = await repository.ReadAsync(query.Parameter).ConfigureAwait(false);
-
-                if (person != null)
+                if (message.Parameter != Guid.Empty)
                 {
-                    var data = new VerificationDetailsQueryData(person.Id);
-                    return new VerificationDetailsQueryResult(query.Id, data);
+                    var repository = (IPersonRepository)provider.GetService(typeof(IPersonRepository));
+                    var person = await repository.ReadAsync(message.Parameter).ConfigureAwait(false);
+
+                    if (person != null)
+                    {
+                        return new VerificationDetailsQueryResult(message.Id,
+                            new VerificationDetailsQueryData(), person.Id);
+                    }
                 }
+                return null;
             }
-                
-            return null;
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex.InnerException);
+            }
         }
 
-        public async Task<FamilyMembersQueryResult> Handle(FamilyMembersQuery query)
+        public async Task<FamilyMembersQueryResult> Handle(FamilyMembersQuery message)
         {
-            if (query.Parameter != Guid.Empty)
+            try
             {
-                var repository = (IPersonRepository)provider.GetService(typeof(IPersonRepository));
-                var person = await repository.ReadAsync(query.Parameter).ConfigureAwait(false);
+                if (message.Parameter == Guid.Empty) { return null; }
 
-                if (person != null)
+                var repository = (IFamilyIdsRepository)provider.GetService(typeof(IFamilyIdsRepository));
+                var familyIds = await repository.ReadAsync(message.Parameter).ConfigureAwait(false);
+
+                if (familyIds != null)
                 {
-                    var data = new FamilyMembersQueryData(person.Id);
-                    return new FamilyMembersQueryResult(query.Id, data);
+                    var data = new FamilyMembersQueryData()
+                    {
+                        MotherId = familyIds.MotherId,
+                        FatherId = familyIds.FatherId,
+                        SpouseId = familyIds.SpouseId
+                    };
+                    return new FamilyMembersQueryResult(message.Id, data, message.Parameter);
                 }
+                return new FamilyMembersQueryResult(message.Id,
+                    new FamilyMembersQueryData(), message.Parameter);
             }
-
-            return null;
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex.InnerException);
+            }
         }
 
         public AggregateQueriesValidator(IServiceProvider provider)

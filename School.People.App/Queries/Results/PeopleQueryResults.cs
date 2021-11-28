@@ -1,6 +1,5 @@
 ﻿using System;
-using School.People.Core;
-using School.People.App.Queries.Models;
+using School.People.App.Queries.Data;
 
 namespace School.People.App.Queries.Results
 {

@@ -13,10 +13,13 @@ namespace School.People.App.Queries
 
     public abstract class QueryResult<T> : QueryResult, IQueryResult<T>
     {
-        public T Data { get; }
+        public T Data { get => data; }
         
         protected QueryResult(Guid id, T data) 
-            : base(id) { Data = data; }
+            : base(id) { this.data = data; }
+
+        [ThreadStatic]
+        private readonly T data;
     }
 
     public abstract class QueryResult : IQueryResult
