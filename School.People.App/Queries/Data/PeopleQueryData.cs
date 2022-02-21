@@ -1,10 +1,9 @@
-﻿using School.People.Core;
-using System.Collections.Generic;
+﻿using School.People.Core.Dtos;
 
 namespace School.People.App.Queries.Data
 {
     public class PeopleQueryData
     {
-        public IEnumerable<IPerson> People { get; set; }
+        public Person[] People { get; set; }
     }
 }

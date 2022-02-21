@@ -17,15 +17,29 @@ namespace School.People.App.Commands.Validators
 
         private bool IsValidPerson(IPerson person)
         {
+            var result = false;
+
             if (person != null)
             {
                 if (IsValidNameString(person.LastName, Constants.PersonSurnameMaxLength) && 
                     IsValidNameString(person.MiddleName, Constants.PersonSurnameMaxLength) &&
-                    IsValidNameString(person.FirstName, Constants.CommonNamesAndTitlesMaxLength) &&
-                    IsValidNameString(person.NameExtension, Constants.PersonNameExtensionMaxLength) &&
-                    IsValidNameString(person.Title, Constants.PersonTitleMaxLength)) { return true; }
+                    IsValidNameString(person.FirstName, Constants.CommonNamesAndTitlesMaxLength)) 
+                { 
+                    var isValidNameExt = person.NameExtension != null ?
+                        IsValidNameString(person.NameExtension.Trim(), Constants.PersonNameExtensionMaxLength)
+                        : true;
+
+                    var isValidTitle = person.Title != null ?
+                        !IsValidNameString(person.Title.Trim(), Constants.PersonTitleMaxLength)
+                        : true;
+
+                    if (isValidNameExt && isValidTitle)
+                    {
+                        result = true;
+                    }
+                }
             }
-            return false;
+            return result;
         }
 
         // O(n) name string validation method
@@ -56,7 +70,7 @@ namespace School.People.App.Commands.Validators
                 }
             }
 
-            return letters == 0 ? false : (letters + spaces + others) == nameString.Length;
+            return letters != 0 && (letters + spaces + others) == nameString.Length;
         }
     }
 }

@@ -5,73 +5,73 @@ namespace School.People.App.Commands
 {
     public class InsertFatherChildCommand : Command<IPerson, Guid>
     {
-        public InsertFatherChildCommand(Guid id, IPerson data, Guid param)
-           : base(id, data, param) { }
+        public InsertFatherChildCommand(Guid commandId, Guid userId, IPerson data, Guid parameter)
+           : base(commandId, userId, data, parameter) { }
     }
 
     public class InsertMotherChildCommand : Command<IPerson, Guid>
     {
-        public InsertMotherChildCommand(Guid id, IPerson data, Guid param)
-           : base(id, data, param) { }
+        public InsertMotherChildCommand(Guid commandId, Guid userId, IPerson data, Guid parameter)
+           : base(commandId, userId, data, parameter) { }
     }
 
     public class UpdateSpouseCommand : Command<IPerson, Guid>
     {
-        public UpdateSpouseCommand(Guid id, IPerson data, Guid param)
-           : base(id, data, param) { }
+        public UpdateSpouseCommand(Guid commandId, Guid userId, IPerson data, Guid parameter)
+           : base(commandId, userId, data, parameter) { }
     }
 
     public class UpdateFatherCommand : Command<IPerson, Guid>
     {
-        public UpdateFatherCommand(Guid id, IPerson data, Guid param)
-           : base(id, data, param) { }
+        public UpdateFatherCommand(Guid commandId, Guid userId, IPerson data, Guid parameter)
+           : base(commandId, userId, data, parameter) { }
     }
 
     public class UpdateMotherCommand : Command<IPerson, Guid>
     {
-        public UpdateMotherCommand(Guid id, IPerson data, Guid param)
-           : base(id, data, param) { }
+        public UpdateMotherCommand(Guid commandId, Guid userId, IPerson data, Guid parameter)
+           : base(commandId, userId, data, parameter) { }
     }
 
     public class ArchiveStudentCommand : Command<IPerson>
     {
-        public ArchiveStudentCommand(Guid id, IPerson data)
-            : base(id, data) { }
+        public ArchiveStudentCommand(Guid commandId, Guid userId, IPerson data)
+            : base(commandId, userId, data) { }
     }
 
     public class ArchivePersonnelCommand : Command<IPerson>
     {
-        public ArchivePersonnelCommand(Guid id, IPerson data)
-            : base(id, data) { }
+        public ArchivePersonnelCommand(Guid commandId, Guid userId, IPerson data)
+            : base(commandId, userId, data) { }
     }
 
     public class ArchiveOtherPersonCommand : Command<IPerson>
     {
-        public ArchiveOtherPersonCommand(Guid id, IPerson data)
-            : base(id, data) { }
+        public ArchiveOtherPersonCommand(Guid commandId, Guid userId, IPerson data)
+            : base(commandId, userId, data) { }
     }
 
     public class InsertStudentCommand : Command<IPerson>
     {
-        public InsertStudentCommand(Guid id, IPerson data)
-            : base(id, data) { }
+        public InsertStudentCommand(Guid commandId, Guid userId, IPerson data)
+            : base(commandId, userId, data) { }
     }
 
     public class InsertPersonnelCommand : Command<IPerson>
     {
-        public InsertPersonnelCommand(Guid id, IPerson data)
-            : base(id, data) { }
+        public InsertPersonnelCommand(Guid commandId, Guid userId, IPerson data)
+            : base(commandId, userId, data) { }
     }
 
     public class InsertOtherPersonCommand : Command<IPerson>
     {
-        public InsertOtherPersonCommand(Guid id, IPerson data)
-            : base(id, data) { }
+        public InsertOtherPersonCommand(Guid commandId, Guid userId, IPerson data)
+            : base(commandId, userId, data) { }
     }
 
     public class UpdatePersonCommand : Command<IPerson>
     {
-        public UpdatePersonCommand(Guid id, IPerson data)
-            : base(id, data) { }
+        public UpdatePersonCommand(Guid commandId, Guid userId, IPerson data)
+            : base(commandId, userId, data) { }
     }
 }

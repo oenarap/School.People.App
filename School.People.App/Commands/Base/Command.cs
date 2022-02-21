@@ -15,8 +15,8 @@ namespace School.People.App.Commands
         /// </summary>
         public TParam Parameter { get; }
 
-        protected Command(Guid id, TData data, TParam parameter)
-            : base(id, data) { Parameter = parameter; }
+        protected Command(Guid commandId, Guid userId, TData data, TParam parameter)
+            : base(commandId, userId, data) { Parameter = parameter; }
     }
 
     /// <summary>
@@ -27,18 +27,25 @@ namespace School.People.App.Commands
     {
         /// <summary>
         /// Gets the command's identifier.
-        /// This property identifies the originator of this instance.
+        /// This property identifies the originator of this command.
         /// </summary>
         public Guid Id { get; }
+
+        /// <summary>
+        /// Gets the identifier of the user
+        /// who issued this command.
+        /// </summary>
+        public Guid UserId { get; }
 
         /// <summary>
         /// Gets the <see cref="T"/> data used to execute this command.
         /// </summary>
         public T Data { get; }
 
-        protected Command(Guid id, T data)
+        protected Command(Guid commandId, Guid userId, T data)
         {
-            Id = id;
+            Id = commandId;
+            UserId = userId;
             Data = data;
         }
     }

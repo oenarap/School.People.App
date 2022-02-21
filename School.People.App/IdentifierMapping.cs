@@ -19,7 +19,7 @@ namespace School.People.App
         public Guid Get(Guid id)
         {
             if (id == Guid.Empty) { return id; }
-            StringBuilder builder = new StringBuilder(id.ToString());
+            var builder = new StringBuilder(id.ToString());
             for (int i = 0; i < builder.Length; i++)
             {
                 builder[i] = ReadingKeys[builder[i]];
@@ -35,7 +35,7 @@ namespace School.People.App
         public Guid Create(Guid id)
         {
             if (id == Guid.Empty) { return id; }
-            StringBuilder builder = new StringBuilder(id.ToString());
+            var builder = new StringBuilder(id.ToString());
             for (int i = 0; i < builder.Length; i++)
             {
                 builder[i] = WritingKeys[builder[i]];
@@ -45,15 +45,15 @@ namespace School.People.App
 
         private void BuildReadWriteKeys()
         {
-            Random rnd = new Random();
-            string hexes = "0123456789abcdef";
-            char[] shuffled = new char[16] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+            var rnd = new Random();
+            var hexes = "0123456789abcdef";
+            var shuffled = new char[16] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
             WritingKeys.Add('-', '-');
             ReadingKeys.Add('-', '-');
             for (int i = 0; i < 16; i++)
             {
-                int index = rnd.Next(0, 15);
-                char hold = shuffled[i];
+                var index = rnd.Next(0, 15);
+                var hold = shuffled[i];
                 shuffled[i] = shuffled[index];
                 shuffled[index] = hold;
             }

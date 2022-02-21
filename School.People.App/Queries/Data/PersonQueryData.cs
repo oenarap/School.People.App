@@ -1,9 +1,9 @@
-﻿using School.People.Core;
+﻿using School.People.Core.Dtos;
 
 namespace School.People.App.Queries.Data
 {
     public class PersonQueryData
     {
-        public IPerson Person { get; set; }
+        public Person Person { get; set; }
     }
 }

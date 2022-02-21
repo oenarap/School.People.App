@@ -3,6 +3,7 @@ using School.People.Core;
 using System.Threading.Tasks;
 using School.People.Core.Attributes;
 using School.People.Core.Dtos;
+using System.Collections.Generic;
 
 namespace School.People.App
 {
@@ -25,6 +26,26 @@ namespace School.People.App
             var title = person.Title == null ? null : $"{person.Title} ";
             var extension = person.NameExtension == null ? null : $", {person.NameExtension}";
             return $"{title}{person.FirstName} {person.MiddleName} {person.LastName}{extension}";
+        }
+
+        public static Person[] ToPersonArray(this IEnumerable<IPerson> people)
+        {
+            var output = new List<Person>();
+
+            foreach (var person in people)
+            {
+                output.Add(new Person()
+                {
+                    Id = person.Id,
+                    LastName = person.LastName,
+                    FirstName = person.FirstName,   
+                    MiddleName = person.MiddleName,
+                    NameExtension = person.NameExtension,
+                    Title = person.Title
+                });
+            }
+
+            return output.ToArray();
         }
 
         public static Person Copy(this IPerson person)

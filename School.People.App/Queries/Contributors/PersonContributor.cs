@@ -15,7 +15,7 @@ namespace School.People.App.Queries.Contributors
             {
                 var repository = (IOtherPeopleRepository)provider.GetService(typeof(IOtherPeopleRepository));
                 var person = await repository.ReadAsync(message.Parameter).ConfigureAwait(false);
-                message.Data.Person = person;
+                message.Data.Person = person.Copy();
             }
             catch (Exception ex)
             {
@@ -29,7 +29,7 @@ namespace School.People.App.Queries.Contributors
             {
                 var repository = (IPersonnelRepository)provider.GetService(typeof(IPersonnelRepository));
                 var person = await repository.ReadAsync(message.Parameter).ConfigureAwait(false);
-                message.Data.Person = person;
+                message.Data.Person = person.Copy();
             }
             catch (Exception ex)
             {
@@ -43,7 +43,7 @@ namespace School.People.App.Queries.Contributors
             {
                 var repository = (IStudentsRepository)provider.GetService(typeof(IStudentsRepository));
                 var person = await repository.ReadAsync(message.Parameter).ConfigureAwait(false);
-                message.Data.Person = person;
+                message.Data.Person = person.Copy();
             }
             catch (Exception ex)
             {

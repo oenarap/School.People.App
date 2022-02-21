@@ -17,7 +17,7 @@ namespace School.People.App.Commands.Handlers
         {
             try
             {
-                var command = new InsertOtherPersonCommand(message.Id, message.Data);
+                var command = new InsertOtherPersonCommand(message.Id, message.UserId, message.Data);
                 var result = await commandHub.Dispatch<InsertOtherPersonCommand, Guid?>(command).ConfigureAwait(false);
 
                 if (result is Guid id)
@@ -38,7 +38,7 @@ namespace School.People.App.Commands.Handlers
         {
             try
             {
-                var command = new InsertOtherPersonCommand(message.Id, message.Data);
+                var command = new InsertOtherPersonCommand(message.Id, message.UserId, message.Data);
                 var result = await commandHub.Dispatch<InsertOtherPersonCommand, Guid?>(command).ConfigureAwait(false);
 
                 if (result is Guid id)
@@ -59,7 +59,7 @@ namespace School.People.App.Commands.Handlers
         {
             try
             {
-                var command = new InsertOtherPersonCommand(message.Id, message.Data);
+                var command = new InsertOtherPersonCommand(message.Id, message.UserId, message.Data);
                 var result = await commandHub.Dispatch<InsertOtherPersonCommand, Guid?>(command).ConfigureAwait(false);
 
                 if (result is Guid id)
@@ -80,7 +80,7 @@ namespace School.People.App.Commands.Handlers
         {
             try
             {
-                var command = new InsertOtherPersonCommand(message.Id, message.Data);
+                var command = new InsertOtherPersonCommand(message.Id, message.UserId, message.Data);
                 var result = await commandHub.Dispatch<InsertOtherPersonCommand, Guid?>(command).ConfigureAwait(false);
 
                 if (result is Guid id)
@@ -101,7 +101,7 @@ namespace School.People.App.Commands.Handlers
         {
             try
             {
-                var command = new InsertOtherPersonCommand(message.Id, message.Data);
+                var command = new InsertOtherPersonCommand(message.Id, message.UserId, message.Data);
                 var result = await commandHub.Dispatch<InsertOtherPersonCommand, Guid?>(command).ConfigureAwait(false);
                 
                 if (result is Guid id)
